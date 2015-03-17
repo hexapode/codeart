@@ -1,0 +1,4 @@
+
+  pg.beginDraw = function() {
+
+  };
