@@ -52,7 +52,8 @@ background(204, 153, 0);
     
 <div class='canvas'>
   <canvas codeart='true'>
-     // Sets the screen to be 640 pixels wide and 360 pixels high
+    
+// Sets the screen to be 640 pixels wide and 360 pixels high
 size(640, 360);
 
 // Set the background to black and turn off the fill color
@@ -82,7 +83,8 @@ rect(width*0.25, height*0.1, width * 0.5, height * 0.8);
 </div>
 <div class='code'>
   <pre>
- // Sets the screen to be 640 pixels wide and 360 pixels high
+
+// Sets the screen to be 640 pixels wide and 360 pixels high
 size(640, 360);
 
 // Set the background to black and turn off the fill color
@@ -116,7 +118,8 @@ rect(width*0.25, height*0.1, width * 0.5, height * 0.8);
     
 <div class='canvas'>
   <canvas codeart='true'>
-    function setup() {
+    
+function setup() {
   size(640, 360);
 }
 
@@ -134,6 +137,7 @@ function draw() {
 </div>
 <div class='code'>
   <pre>
+
 function setup() {
   size(640, 360);
 }
@@ -148,6 +152,64 @@ function draw() {
     rect(i, 0, 10, height);
   }
 }
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var y;
+// The statements in the setup() function 
+// execute once when the program begins
+function setup() 
+{
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  
+  y = height * 0.5;
+}
+
+// The statements in draw() are executed until the 
+// program is stopped. Each statement is executed in 
+// sequence and after the last line is read, the first 
+// line is executed again.
+function draw() 
+{ 
+  background(0);   // Set the background to black
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var y;
+// The statements in the setup() function 
+// execute once when the program begins
+function setup() 
+{
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  
+  y = height * 0.5;
+}
+
+// The statements in draw() are executed until the 
+// program is stopped. Each statement is executed in 
+// sequence and after the last line is read, the first 
+// line is executed again.
+function draw() 
+{ 
+  background(0);   // Set the background to black
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
   </pre>
 </div>
 
