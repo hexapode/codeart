@@ -12,6 +12,7 @@ for (var i = 0; i < DEMO_FILES.length; ++i) {
     var code = fs.readFileSync('./demo-src/' + DEMO_FILES[i]);
     templateDemo = templateDemo.toString().replace('<% code %>', code);
     templateDemo = templateDemo.toString().replace('<% code %>', code);
+    templateDemo = templateDemo.toString().replace('<% title %>', DEMO_FILES[i].replace('.js', ''));
     output += templateDemo;
   }
 }

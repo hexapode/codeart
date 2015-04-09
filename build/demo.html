@@ -23,7 +23,7 @@
   </head>
 
   <body>
-    <h1>CodeArt!</h1>    
+    <h1>CodeArt!</h1><h2>001_simple</h2>    
 <div class='canvas'>
   <canvas codeart='true'>
     
@@ -49,7 +49,7 @@ background(204, 153, 0);
 
 <div class='clearboth'></div>
     
-    
+<h2>002_more</h2>    
 <div class='canvas'>
   <canvas codeart='true'>
     
@@ -115,7 +115,7 @@ rect(width*0.25, height*0.1, width * 0.5, height * 0.8);
 
 <div class='clearboth'></div>
     
-    
+<h2>003_rect</h2>    
 <div class='canvas'>
   <canvas codeart='true'>
     
@@ -157,7 +157,7 @@ function draw() {
 
 <div class='clearboth'></div>
     
-    
+<h2>004_draw</h2>    
 <div class='canvas'>
   <canvas codeart='true'>
     var y;
@@ -210,6 +210,266 @@ function draw()
   if (y < 0) { y = height; } 
   line(0, y, width, y);  
 } 
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+<h2>005_drawLoop</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var y;
+// The statements in the setup() function 
+// execute once when the program begins
+function setup() 
+{
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  
+  y = height * 0.5;
+}
+
+// The statements in draw() are executed until the 
+// program is stopped. Each statement is executed in 
+// sequence and after the last line is read, the first 
+// line is executed again.
+function draw() 
+{ 
+  background(0);   // Set the background to black
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
+
+// Called when mouse is pressed
+function mousePressed() {
+  // start loopiing
+  loop();
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var y;
+// The statements in the setup() function 
+// execute once when the program begins
+function setup() 
+{
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  
+  y = height * 0.5;
+}
+
+// The statements in draw() are executed until the 
+// program is stopped. Each statement is executed in 
+// sequence and after the last line is read, the first 
+// line is executed again.
+function draw() 
+{ 
+  background(0);   // Set the background to black
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
+
+// Called when mouse is pressed
+function mousePressed() {
+  // start loopiing
+  loop();
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+<h2>006_redraw</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var y;
+// The statements in the setup() function 
+// execute once when the program begins
+function setup() 
+{
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  
+  y = height * 0.5;
+}
+
+// The statements in draw() are executed until the 
+// program is stopped. Each statement is executed in 
+// sequence and after the last line is read, the first 
+// line is executed again.
+function draw() 
+{ 
+  background(0);   // Set the background to black
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
+
+// Called when mouse is pressed
+function mousePressed() {
+  // loop one step
+  redraw();
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var y;
+// The statements in the setup() function 
+// execute once when the program begins
+function setup() 
+{
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  
+  y = height * 0.5;
+}
+
+// The statements in draw() are executed until the 
+// program is stopped. Each statement is executed in 
+// sequence and after the last line is read, the first 
+// line is executed again.
+function draw() 
+{ 
+  background(0);   // Set the background to black
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
+
+// Called when mouse is pressed
+function mousePressed() {
+  // loop one step
+  redraw();
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+<h2>007_circles</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    function setup() {
+  size(640, 360);
+  background(51);
+  noStroke();
+  noLoop();
+}
+
+function draw() {
+  drawTarget(width * 0.25, height * 0.4, 200, 4);
+  drawTarget(width * 0.5, height * 0.5, 300, 10);
+  drawTarget(width * 0.75, height * 0.3, 120, 6);
+}
+
+function drawTarget(xloc, yloc, size, num) {
+  grayvalues = 255/num;
+  steps = size/num;
+  for (i = 0; i < num; i++) {
+    fill(i * grayvalues);
+    ellipse(xloc, yloc, size - i * steps, size - i * steps);
+  }
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+function setup() {
+  size(640, 360);
+  background(51);
+  noStroke();
+  noLoop();
+}
+
+function draw() {
+  drawTarget(width * 0.25, height * 0.4, 200, 4);
+  drawTarget(width * 0.5, height * 0.5, 300, 10);
+  drawTarget(width * 0.75, height * 0.3, 120, 6);
+}
+
+function drawTarget(xloc, yloc, size, num) {
+  grayvalues = 255/num;
+  steps = size/num;
+  for (i = 0; i < num; i++) {
+    fill(i * grayvalues);
+    ellipse(xloc, yloc, size - i * steps, size - i * steps);
+  }
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+<h2>008_magic_squares</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    // This is a prototype like language
+// to use on arty project.
+// Unlike prototype however this is
+// untyped. You just have to wrote
+// some instruction inside a canvas :)
+  
+// we set size of experience
+size(640, 300);
+
+// we set a background color
+background(243);
+
+// we do no want stroke
+noStroke();
+
+// as in processing JS draw define 
+// a loop
+function draw() {
+  // we draw a lot of rectangle
+  for (i = 0; i <= 32; ++i) {
+    for (j = 0; j < 15; ++j) {
+    // set Fill color
+    fill(((i * 5 + j * 15 + frameCount) % 255));
+    rect(i * 20 + 2, j * 20 + 2,15,15); 
+   }
+ }
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+// This is a prototype like language
+// to use on arty project.
+// Unlike prototype however this is
+// untyped. You just have to wrote
+// some instruction inside a canvas :)
+  
+// we set size of experience
+size(640, 300);
+
+// we set a background color
+background(243);
+
+// we do no want stroke
+noStroke();
+
+// as in processing JS draw define 
+// a loop
+function draw() {
+  // we draw a lot of rectangle
+  for (i = 0; i <= 32; ++i) {
+    for (j = 0; j < 15; ++j) {
+    // set Fill color
+    fill(((i * 5 + j * 15 + frameCount) % 255));
+    rect(i * 20 + 2, j * 20 + 2,15,15); 
+   }
+ }
+}
   </pre>
 </div>
 
