@@ -1,4 +1,7 @@
-
+/**
+ * Convert some processing code to codeArt :)
+ * @type {Object}
+ */
 var enums = {
   POINTS          : '1',
   LINES           : '2',

@@ -353,7 +353,10 @@ pg.triangle = function (x1, y1, x2, y2, x3, y3) {
   
   return pg;
 }
-
+/**
+ * Convert some processing code to codeArt :)
+ * @type {Object}
+ */
 var enums = {
   POINTS          : '1',
   LINES           : '2',
@@ -591,6 +594,7 @@ function CodeArt(canvas) {
   canvas.addEventListener('mousemove', function(e) {
     MOUSE.x = e.clientX;
     MOUSE.y = e.clientY;
+    console.log(MOUSE.x, MOUSE.y);
   });
 
 

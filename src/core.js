@@ -99,6 +99,7 @@ function CodeArt(canvas) {
   canvas.addEventListener('mousemove', function(e) {
     MOUSE.x = e.clientX;
     MOUSE.y = e.clientY;
+    console.log(MOUSE.x, MOUSE.y);
   });
 
 
