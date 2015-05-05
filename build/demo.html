@@ -1071,7 +1071,7 @@ function draw() {
 
 <div class='clearboth'></div>
     
-<h2>18_random</h2>    
+<h2>018_random</h2>    
 <div class='canvas'>
   <canvas codeart='true'>
     size(640, 360);
@@ -1138,6 +1138,132 @@ line(a, b, a+c, b);
 line(a, b+10, a+c, b+10);
 line(a, b+20, a+c, b+20);
 line(a, b+30, a+c, b+30);
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+<h2>019_lines</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var a = 0;      
+var b = 0.;  
+
+function setup() {
+  size(640, 360);
+  stroke(255);
+  frameRate(30);
+}
+
+function draw() {
+  background(0);
+  
+  a = a + 1;
+  b = b + 0.2; 
+  line(a, 0, a, height/2);
+  line(b, height/2, b, height);
+  
+  if(a > width) {
+    a = 0;
+  }
+  if(b > width) {
+    b = 0;
+  }
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var a = 0;      
+var b = 0.;  
+
+function setup() {
+  size(640, 360);
+  stroke(255);
+  frameRate(30);
+}
+
+function draw() {
+  background(0);
+  
+  a = a + 1;
+  b = b + 0.2; 
+  line(a, 0, a, height/2);
+  line(b, height/2, b, height);
+  
+  if(a > width) {
+    a = 0;
+  }
+  if(b > width) {
+    b = 0;
+  }
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+<h2>020_linebis</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var b = false;
+
+size(640, 360);
+background(0);
+stroke(255);
+
+var d = 20;
+var middle = width/2;;
+
+for (var i = d; i <= width; i += d) {
+  
+  if (i < middle) {
+    b = true;
+  } else {
+    b = false;
+  }
+  
+  if (b == true) {
+    // Vertical line
+    line(i, d, i, height-d);
+  }
+  
+  if (b == false) {
+    // Horizontal line
+    line(middle, i - middle + d, width-d, i - middle + d);
+  }
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var b = false;
+
+size(640, 360);
+background(0);
+stroke(255);
+
+var d = 20;
+var middle = width/2;;
+
+for (var i = d; i <= width; i += d) {
+  
+  if (i < middle) {
+    b = true;
+  } else {
+    b = false;
+  }
+  
+  if (b == true) {
+    // Vertical line
+    line(i, d, i, height-d);
+  }
+  
+  if (b == false) {
+    // Horizontal line
+    line(middle, i - middle + d, width-d, i - middle + d);
+  }
+}
   </pre>
 </div>
 
