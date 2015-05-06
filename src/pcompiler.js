@@ -18,6 +18,7 @@ var enums = {
 
 }
 
+
 function PCompiler (src) {
     var TOKENS = [ ',' , ';', ' ', '\t', '+', '!', '(', ')', '#', '\\', '/', '-', '%', '^', '&', '*', '=', '[', ']', '\'', '\"', '{', '}'];
     var source = '';
@@ -25,18 +26,59 @@ function PCompiler (src) {
     var TYPES = ['void', 'float', 'int', 'PGraphics', 'boolean', 'class'];
     var TOKENS_SPACE = [ ' ' , '\n', '\r', '\t'];
 
+    function handleClass() {
+      while (src.indexOf('class') !== -1) {
+        var className = getNextWord(src, src.indexOf('class') + 5);
+        // find and destroy constructor
 
-    while (src.indexOf('[]') !== -1) {
-      var i = src.indexOf('[]');
-      var token = getNextWordToken(src, i + 2);
-      console.log(token);
-      if (token === '=') {
-        src = replaceAt(src, src.indexOf('{', i + 2), '[');
-        src = replaceAt(src, src.indexOf('}', i + 2), ']');
+          var block = getNextBlock(src, src.indexOf('class'));
+      
+        // find all new ClassName();
+
+
+        // find all className Declarations
+
+
+        src = src.replace('class', '');
       }
-      src = src.replace('[]', '');
     }
 
+    function handleArray() {
+      // TODO : a small subroutine ot clean [];
+      // [] can be array declaration in C, but may sometime be valid JS;
+      while (src.indexOf('[]') !== -1) {
+        var i = src.indexOf('[]');
+        var token = getNextWordToken(src, i + 2);
+        if (token === '=') {
+          src = replaceAt(src, src.indexOf('{', i + 2), '[');
+          src = replaceAt(src, src.indexOf('}', i + 2), ']');
+        }
+        token = getPrevWordToken(src, i - 1);
+        // in js [] may be valid in after a = or ,
+  
+
+        if (token !== '=' && token !== ',') {
+          src = src.replace('[]', '');
+        }
+        else {
+           src = src.replace('[]', '[ ]');
+        }
+      } 
+    }
+
+    function getNextWord(src, index) {
+      var i = 0;
+      // pass alll spaces
+      while (i < src.length && TOKENS_SPACE.indexOf(src[index + i]) != -1) {
+        ++i;
+      }
+      while (i < src.length && TOKENS.indexOf(src[index + i]) == -1) {
+        ++i;
+      }
+      var word = src.substr(index, i);
+      console.log(word);
+      return word.trim();
+    }
 
     function replaceAt(txt, index, character) {
       return txt.substr(0, index) + character + txt.substr(index+character.length); 
@@ -44,6 +86,15 @@ function PCompiler (src) {
 
     function getNextWordToken(src, index) {
       for (var i = index; i < src.length; ++i) {
+        if (TOKENS.indexOf(src[i]) !== -1 && TOKENS_SPACE.indexOf(src[i]) === -1) {
+          return src[i];
+        }
+      }
+      return ' ';
+    }
+
+    function getPrevWordToken(src,index) {
+      for (var i = index; i >= 0; --i) {
         if (TOKENS.indexOf(src[i]) !== -1 && TOKENS_SPACE.indexOf(src[i]) === -1) {
           return src[i];
         }
@@ -64,6 +115,9 @@ function PCompiler (src) {
       }
       return hasWord;
     }
+    
+    handleClass();
+    handleArray()
 
     for (var i = 0; i < src.length; ++i) {
       if (TOKENS.indexOf(src[i]) !== -1 || src.charCodeAt(i) < 33) {

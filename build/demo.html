@@ -1269,6 +1269,232 @@ for (var i = d; i <= width; i += d) {
 
 <div class='clearboth'></div>
     
+<h2>021_pointsCloud</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var distances;
+var maxDistance;
+var spacer;
+
+function setup() {
+  size(640, 360);
+  maxDistance = dist(width/2, height/2, width, height);
+  distances = [];
+  for (var y = 0; y < height; y++) {
+    distances[y] = [];
+    for (var x = 0; x < width; x++) {
+      var distance = dist(width/2, height/2, x, y);
+      distances[y][x] = distance/maxDistance * 255;
+    }
+  }
+  spacer = 10;
+  noLoop();  // Run once and stop
+}
+
+function draw() {
+  background(0);
+  // This embedded loop skips over values in the arrays based on
+  // the spacer variable, so there are more values in the array
+  // than are drawn here. Change the value of the spacer variable
+  // to change the density of the points
+  for (var y = 0; y < height; y += spacer) {
+    for (var x = 0; x < width; x += spacer) {
+      stroke(distances[y][x]);
+      point(x + spacer/2, y + spacer/2);
+    }
+  }
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var distances;
+var maxDistance;
+var spacer;
+
+function setup() {
+  size(640, 360);
+  maxDistance = dist(width/2, height/2, width, height);
+  distances = [];
+  for (var y = 0; y < height; y++) {
+    distances[y] = [];
+    for (var x = 0; x < width; x++) {
+      var distance = dist(width/2, height/2, x, y);
+      distances[y][x] = distance/maxDistance * 255;
+    }
+  }
+  spacer = 10;
+  noLoop();  // Run once and stop
+}
+
+function draw() {
+  background(0);
+  // This embedded loop skips over values in the arrays based on
+  // the spacer variable, so there are more values in the array
+  // than are drawn here. Change the value of the spacer variable
+  // to change the density of the points
+  for (var y = 0; y < height; y += spacer) {
+    for (var x = 0; x < width; x += spacer) {
+      stroke(distances[y][x]);
+      point(x + spacer/2, y + spacer/2);
+    }
+  }
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+<h2>022_snowFlakes</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    
+int unit = 40;
+int count;
+Module[] mods;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  int wideCount = width / unit;
+  int highCount = height / unit;
+  count = wideCount * highCount;
+  mods = new Module[count];
+
+  int index = 0;
+  for (int y = 0; y < highCount; y++) {
+    for (int x = 0; x < wideCount; x++) {
+      mods[index++] = new Module(x*unit, y*unit, unit/2, unit/2, random(0.05, 0.8), unit);
+    }
+  }
+}
+
+void draw() {
+  background(0);
+  for (Module mod : mods) {
+    mod.update();
+    mod.draw();
+  }
+}
+
+
+class Module {
+  int xOffset;
+  int yOffset;
+  float x, y;
+  int unit;
+  int xDirection = 1;
+  int yDirection = 1;
+  float speed; 
+  
+  // Contructor
+  Module(int xOffsetTemp, int yOffsetTemp, int xTemp, int yTemp, float speedTemp, int tempUnit) {
+    xOffset = xOffsetTemp;
+    yOffset = yOffsetTemp;
+    x = xTemp;
+    y = yTemp;
+    speed = speedTemp;
+    unit = tempUnit;
+  }
+  
+  // Custom method for updating the variables
+  void update() {
+    x = x + (speed * xDirection);
+    if (x >= unit || x <= 0) {
+      xDirection *= -1;
+      x = x + (1 * xDirection);
+      y = y + (1 * yDirection);
+    }
+    if (y >= unit || y <= 0) {
+      yDirection *= -1;
+      y = y + (1 * yDirection);
+    }
+  }
+  
+  // Custom method for drawing the object
+  void draw() {
+    fill(255);
+    ellipse(xOffset + x, yOffset + y, 6, 6);
+  }
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+
+int unit = 40;
+int count;
+Module[] mods;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  int wideCount = width / unit;
+  int highCount = height / unit;
+  count = wideCount * highCount;
+  mods = new Module[count];
+
+  int index = 0;
+  for (int y = 0; y < highCount; y++) {
+    for (int x = 0; x < wideCount; x++) {
+      mods[index++] = new Module(x*unit, y*unit, unit/2, unit/2, random(0.05, 0.8), unit);
+    }
+  }
+}
+
+void draw() {
+  background(0);
+  for (Module mod : mods) {
+    mod.update();
+    mod.draw();
+  }
+}
+
+
+class Module {
+  int xOffset;
+  int yOffset;
+  float x, y;
+  int unit;
+  int xDirection = 1;
+  int yDirection = 1;
+  float speed; 
+  
+  // Contructor
+  Module(int xOffsetTemp, int yOffsetTemp, int xTemp, int yTemp, float speedTemp, int tempUnit) {
+    xOffset = xOffsetTemp;
+    yOffset = yOffsetTemp;
+    x = xTemp;
+    y = yTemp;
+    speed = speedTemp;
+    unit = tempUnit;
+  }
+  
+  // Custom method for updating the variables
+  void update() {
+    x = x + (speed * xDirection);
+    if (x >= unit || x <= 0) {
+      xDirection *= -1;
+      x = x + (1 * xDirection);
+      y = y + (1 * yDirection);
+    }
+    if (y >= unit || y <= 0) {
+      yDirection *= -1;
+      y = y + (1 * yDirection);
+    }
+  }
+  
+  // Custom method for drawing the object
+  void draw() {
+    fill(255);
+    ellipse(xOffset + x, yOffset + y, 6, 6);
+  }
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
     <script type="text/javascript">
       startCodeArt();
     </script>

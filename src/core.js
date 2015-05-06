@@ -111,6 +111,11 @@ function CodeArt(canvas) {
     MOUSE.y = e.clientY;
   });
 
+
+  function dist(x1, y1, x2, y2) {
+    return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  }
+
   // constants
   source = 'var PI = Math.PI; var TWO_PI = Math.PI * 2;var CLOSE = 1;' + source;
 
@@ -155,6 +160,7 @@ function CodeArt(canvas) {
     'map',
     'frameRate',
     'radians',
+    'dist',
 
     '___SetLoop',
     '___SetMousePressed',
@@ -208,6 +214,7 @@ function CodeArt(canvas) {
     map,
     frameRate,
     radians,
+    dist,
 
     ___SetLoop,
     ___SetMousePressed,
