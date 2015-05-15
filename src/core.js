@@ -116,6 +116,15 @@ function CodeArt(canvas) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
   }
 
+  function random(high) {
+    if (arguments.length === 2) {
+      var low = arguments[0];
+      var high = arguments[1]
+      return low + Math.random() * (low - high);
+    }
+    return Math.random() * high;
+  }
+
   // constants
   source = 'var PI = Math.PI; var TWO_PI = Math.PI * 2;var CLOSE = 1;' + source;
 
@@ -161,6 +170,7 @@ function CodeArt(canvas) {
     'frameRate',
     'radians',
     'dist',
+    'random',
 
     '___SetLoop',
     '___SetMousePressed',
@@ -215,6 +225,7 @@ function CodeArt(canvas) {
     frameRate,
     radians,
     dist,
+    random,
 
     ___SetLoop,
     ___SetMousePressed,
