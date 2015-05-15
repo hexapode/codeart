@@ -1,5 +1,5 @@
 float x1, x2, y1, y2;
-float angle1, angle2;
+float angle1 = 0, angle2 = 0;
 float scalar = 70;
 
 void setup() {
@@ -19,7 +19,7 @@ void draw() {
   
   y1 = height/2 + (scalar * sin(ang1));
   y2 = height/2 + (scalar * sin(ang2));
-  
+
   fill(255);
   rect(width*0.5, height*0.5, 140, 140);
 

@@ -14,7 +14,10 @@ var enums = {
   SQUARE          : '9',
   ROUND           : '10',
   PROJECT         : '11',
-
+  CENTER          : '12',
+  CORNER          : '13',
+  CORNERS         : '14',
+  RADIUS          : '15'
 }
 
 

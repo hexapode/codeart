@@ -290,15 +290,48 @@ pg.quad = function(x1, y1, x2, y2, x3, y3, x4, y4) {
       ctx.fill();
     }
   };
+ 
+
   pg.rect = function(x,y,w,h) {
-   
-    if (CAN_STROKE) {
-      ctx.strokeRect(x,y,w,h);
+    if (pg.__CURRENT_RECTMODE == enums.CORNER) {
+      if (CAN_STROKE) {
+        ctx.strokeRect(x,y,w,h);
+      }
+      if (CAN_FILL) {
+        ctx.fillRect(x,y,w,h);
+      }
     }
-    if (CAN_FILL) {
-      ctx.fillRect(x,y,w,h);
-    }
+    else if (pg.__CURRENT_RECTMODE == enums.CORNERS) {
+      if (CAN_STROKE) {
+        ctx.strokeRect(x, y, w-x, h-y);
+      }
+      if (CAN_FILL) {
+        ctx.fillRect(x, y, w - x, h - y);
+      }
+    } 
+    else if (pg.__CURRENT_RECTMODE == enums.CENTER) {
+      if (CAN_STROKE) {
+        ctx.strokeRect(x - w / 2, y - h / 2, w , h);
+      }
+      if (CAN_FILL) {
+        ctx.fillRect(x - w / 2, y - h / 2, w , h);
+      }
+    } 
+    else if (pg.__CURRENT_RECTMODE == enums.RADIUS) {
+      if (CAN_STROKE) {
+        ctx.strokeRect(x - w , y - h,w * 2 , h * 2);
+      }
+      if (CAN_FILL) {
+        ctx.fillRect(x - w , y - h,w * 2 , h * 2);
+      }
+    } 
   };
+
+pg.__CURRENT_RECTMODE = enums.CORNER;
+
+pg.rectMode = function(mode) {
+  pg.__CURRENT_RECTMODE = mode;
+}
 
   pg.rotate = function(angle) {
     ctx.rotate(angle);
@@ -435,7 +468,10 @@ var enums = {
   SQUARE          : '9',
   ROUND           : '10',
   PROJECT         : '11',
-
+  CENTER          : '12',
+  CORNER          : '13',
+  CORNERS         : '14',
+  RADIUS          : '15'
 }
 
 
@@ -1020,6 +1056,8 @@ function CodeArt(canvas) {
     'strokeWeight',
     'strokeCap',
 
+    'rectMode',
+
 
     'rotate',
 
@@ -1082,6 +1120,8 @@ function CodeArt(canvas) {
     
     mainPG.strokeWeight,
     mainPG.strokeCap,
+
+    mainPG.rectMode,
 
     mainPG.rotate,
 

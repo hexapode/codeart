@@ -190,6 +190,8 @@ function CodeArt(canvas) {
     'strokeWeight',
     'strokeCap',
 
+    'rectMode',
+
 
     'rotate',
 
@@ -252,6 +254,8 @@ function CodeArt(canvas) {
     
     mainPG.strokeWeight,
     mainPG.strokeCap,
+
+    mainPG.rectMode,
 
     mainPG.rotate,
 
