@@ -205,6 +205,26 @@ pg.line = function(x,y,x2,y2) {
     ctx.fill();
   }
 };
+/**
+  load pixels
+*/
+
+pg.loadPixels = function() {
+ // pg.pixels = 
+
+ var pxl = ctx.getImageData(0,0,WIDTH, HEIGHT);
+ var pxlData = pxl.data;
+
+ for (var i = 0; i < pxlData.length; i += 4) {
+    pg.pixels[i / 4] = {
+      r : pxlData[i],
+      g : pxlData[i + 1],
+      b : pxlData[i + 2],
+      a : pxlData[i + 4]
+    };
+ } 
+
+};
   pg.noFill = function () {
    
     CAN_FILL = false;
@@ -217,6 +237,10 @@ pg.line = function(x,y,x2,y2) {
  
     CAN_STROKE = false;
   };
+/**
+*/
+
+pg.pixels = [];
   pg.point = function (x, y) {
   
     if (CAN_FILL) {
@@ -331,6 +355,23 @@ pg.triangle = function (x1, y1, x2, y2, x3, y3) {
     ctx.fill();
   }
 };
+pg.updatePixels = function() {
+  debugger;
+  if (pg.pixels.length) {
+    var pxl = ctx.getImageData(0,0,WIDTH, HEIGHT);
+    var pxlData = pxl.data;
+    for (var i = 0; i < pg.pixels.length; i++) {
+      var p = pg.pixels[i];
+      pxlData[i * 4] = p.r | 0;
+      pxlData[i * 4 + 1] = p.g | 0;
+      pxlData[i * 4 + 2] = p.b | 0;
+      pxlData[i * 4 + 3] = p.a | 0;
+    } 
+
+    pxl.data = pxlData;
+    ctx.putImageData(pxl,0, 0);
+  }
+}
   pg.vertex = function(x, y) {
     CURRENT_SHAPE.push([x, y]);
   }
@@ -634,7 +675,7 @@ function PCompiler (src) {
 
       var forins = src.match(forInRegExp);
 
-      for (var i = 0; i < forins.length; ++i) {
+      for (var i = 0;forins && i < forins.length; ++i) {
         var str =  forins[i];
 
         var capture = forInCapRegExp.exec(str);
@@ -889,6 +930,26 @@ function CodeArt(canvas) {
     return Math.random() * high;
   }
 
+  function color() {
+     if (arguments.length === 1) {
+      return {
+        r : arguments[0] | 0,
+        g : arguments[0] | 0,
+        b : arguments[0] | 0,
+        a : 255
+      }
+    }
+    if (arguments.length === 3) {
+      return {
+        r : arguments[0] | 0,
+        g : arguments[1] | 0,
+        b : arguments[2] | 0,
+        a : 255
+      }
+    }
+  }
+
+
   // constants
   source = 'var PI = Math.PI; var TWO_PI = Math.PI * 2;var CLOSE = 1;' + source;
 
@@ -916,6 +977,10 @@ function CodeArt(canvas) {
     'arc',
     'quad',
     'bezier',
+
+    'loadPixels',
+    'updatePixels',
+    'pixels',
     
     'pushMatrix',
     'popMatrix',
@@ -935,6 +1000,7 @@ function CodeArt(canvas) {
     'radians',
     'dist',
     'random',
+    'color',
 
     '___SetLoop',
     '___SetMousePressed',
@@ -972,6 +1038,9 @@ function CodeArt(canvas) {
     mainPG.quad,
     mainPG.bezier,
 
+    mainPG.loadPixels,
+    mainPG.updatePixels,
+    mainPG.pixels,
 
     mainPG._save,
     mainPG._restore,
@@ -990,6 +1059,7 @@ function CodeArt(canvas) {
     radians,
     dist,
     random,
+    color,
 
     ___SetLoop,
     ___SetMousePressed,

@@ -125,6 +125,26 @@ function CodeArt(canvas) {
     return Math.random() * high;
   }
 
+  function color() {
+     if (arguments.length === 1) {
+      return {
+        r : arguments[0] | 0,
+        g : arguments[0] | 0,
+        b : arguments[0] | 0,
+        a : 255
+      }
+    }
+    if (arguments.length === 3) {
+      return {
+        r : arguments[0] | 0,
+        g : arguments[1] | 0,
+        b : arguments[2] | 0,
+        a : 255
+      }
+    }
+  }
+
+
   // constants
   source = 'var PI = Math.PI; var TWO_PI = Math.PI * 2;var CLOSE = 1;' + source;
 
@@ -152,6 +172,10 @@ function CodeArt(canvas) {
     'arc',
     'quad',
     'bezier',
+
+    'loadPixels',
+    'updatePixels',
+    'pixels',
     
     'pushMatrix',
     'popMatrix',
@@ -171,6 +195,7 @@ function CodeArt(canvas) {
     'radians',
     'dist',
     'random',
+    'color',
 
     '___SetLoop',
     '___SetMousePressed',
@@ -208,6 +233,9 @@ function CodeArt(canvas) {
     mainPG.quad,
     mainPG.bezier,
 
+    mainPG.loadPixels,
+    mainPG.updatePixels,
+    mainPG.pixels,
 
     mainPG._save,
     mainPG._restore,
@@ -226,6 +254,7 @@ function CodeArt(canvas) {
     radians,
     dist,
     random,
+    color,
 
     ___SetLoop,
     ___SetMousePressed,

@@ -279,7 +279,7 @@ function PCompiler (src) {
 
       var forins = src.match(forInRegExp);
 
-      for (var i = 0; i < forins.length; ++i) {
+      for (var i = 0;forins && i < forins.length; ++i) {
         var str =  forins[i];
 
         var capture = forInCapRegExp.exec(str);
