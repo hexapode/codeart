@@ -95,6 +95,9 @@ function PCompiler (src) {
         console.log(block);
         var blockSource = '';
         var stackDeep = 1;
+
+        var internFn = [];
+
         for (var i = 0; i < block.length; ++i) {
           if (block[i] === '{') {
             stackDeep++;
@@ -103,14 +106,18 @@ function PCompiler (src) {
             stackDeep--;
           }
           if (TOKENS.indexOf(block[i]) !== -1 || block.charCodeAt(i) < 33) {
+  
             if (TYPES.indexOf(word) !== -1) {
               var next = getNextWordToken(block, i);
 
               // detect function
               if (next === '(' && hasTokenBeforeNextWord(block, i) && stackDeep === 1) {
                 var fnName = getNextWord(block, i);
-               if (TYPES.indexOf(fnName) === -1) {
-                  word = 'this.' + fnName + ' = function';
+                
+
+                if (TYPES.indexOf(fnName) === -1) {
+                  internFn.push(fnName);
+                  word = 'function';
                 }
               }
             }
@@ -122,15 +129,18 @@ function PCompiler (src) {
                 word = 'var ';
               }
             }
-
             blockSource += word + block[i];
             word = '';
           }
-          else {
+          else {  
             word += block[i];
           }
         }
 
+        // replace function calls!
+        for (var i = 0; i < internFn.length; ++i) {
+          blockSource += 'this.' + internFn[i] + ' = ' + internFn[i] + ';';
+        }
         block = blockSource;
 
         // update Module signature
@@ -140,13 +150,12 @@ function PCompiler (src) {
         // find all new ClassName[];
 
         var tabAssignRegexp = new RegExp('new[\\s\\r\\n\\t]*' +  className +'[\\s\\r\\n\\t]*\\[[^\\]]*]', 'g');
-        pre = pre.replace(tabAssignRegexp, '[ ]');
-        post = post.replace(tabAssignRegexp, '[ ]');
 
         // find all className Declarations
 
         src = pre + signature + block + post;
-
+        src = src.replace(tabAssignRegexp, '[ ]');
+        
         CLASS_TYPES.push(className);
 
 
@@ -321,6 +330,9 @@ function PCompiler (src) {
 
     }
 
+    src = src.replace(/&amp;/g, '&');
+
+
     handleClass();
     handleArray();
     handleForIn();
@@ -357,6 +369,37 @@ function PCompiler (src) {
         }
         if (word === 'sin') {
           word = 'Math.sin';
+        }
+        if (word === 'abs') {
+          word = 'Math.abs';
+        }
+        if (word === 'ceil') {
+          word = 'Math.ceil';
+        }
+        if (word === 'floor') {
+          word = 'Math.floor';
+        }
+        if (word === 'acos') {
+          word = 'Math.acos';
+        }
+        if (word === 'asin') {
+          word = 'Math.asin';
+        }
+        if (word === 'tan') {
+          word = 'Math.tan';
+        }
+        if (word === 'atan') {
+          word = 'Math.atan';
+        }
+        if (word === 'atan2') {
+          word = 'Math.atan2';
+        }
+        if (word === 'sqrt') {
+          word = 'Math.sqrt';
+        }
+
+        if (word === 'println') {
+          word = 'console.log';
         }
 
         if (TYPES.indexOf(word) !== -1) {
