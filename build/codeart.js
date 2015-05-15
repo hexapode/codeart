@@ -86,8 +86,9 @@ pg.beginShape = function(MODE) {
     var pg = PGraphics(canvas);
     return pg;
   };
-  pg.ellipse = function(x,y,w,h) {
 
+pg.ellipse = function(x,y,w,h) {
+  if (pg.__CURRENT_ELLIPSEMODE == enums.CORNER) {
     ctx.beginPath();
     ctx.ellipse(x,y,w/2,h/2, 0, 0, Math.PI * 2);
     if (CAN_STROKE) {
@@ -96,7 +97,45 @@ pg.beginShape = function(MODE) {
     if (CAN_FILL) {
       ctx.fill();
     }
-  };
+  }
+  else if (pg.__CURRENT_ELLIPSEMODE == enums.RADIUS) {
+    ctx.beginPath();
+    ctx.ellipse(x - w,y - h, w * 2, h * 2, 0, 0, Math.PI * 2);
+    if (CAN_STROKE) {
+      ctx.stroke();
+    }
+    if (CAN_FILL) {
+      ctx.fill();
+    }
+  }
+  else if (pg.__CURRENT_ELLIPSEMODE == enums.CENTER) {
+    ctx.beginPath();
+    ctx.ellipse(x - w / 2,y - h / 2, w, h, 0, 0, Math.PI * 2);
+    if (CAN_STROKE) {
+      ctx.stroke();
+    }
+    if (CAN_FILL) {
+      ctx.fill();
+    }
+  }
+  else if (pg.__CURRENT_ELLIPSEMODE == enums.CORNERS) {
+    ctx.beginPath();
+    ctx.ellipse(x, y, w - x, h - y, 0, 0, Math.PI * 2);
+    if (CAN_STROKE) {
+      ctx.stroke();
+    }
+    if (CAN_FILL) {
+      ctx.fill();
+    }
+  }
+};
+
+pg.__CURRENT_ELLIPSEMODE = enums.CORNER;
+
+
+pg.ellipseMode = function(mode) {
+  pg.__CURRENT_ELLIPSEMODE = mode;
+}
 
   pg.endDraw = function() {
 
@@ -290,42 +329,42 @@ pg.quad = function(x1, y1, x2, y2, x3, y3, x4, y4) {
       ctx.fill();
     }
   };
- 
 
-  pg.rect = function(x,y,w,h) {
-    if (pg.__CURRENT_RECTMODE == enums.CORNER) {
-      if (CAN_STROKE) {
-        ctx.strokeRect(x,y,w,h);
-      }
-      if (CAN_FILL) {
-        ctx.fillRect(x,y,w,h);
-      }
+
+pg.rect = function(x,y,w,h) {
+  if (pg.__CURRENT_RECTMODE == enums.CORNER) {
+    if (CAN_STROKE) {
+      ctx.strokeRect(x,y,w,h);
     }
-    else if (pg.__CURRENT_RECTMODE == enums.CORNERS) {
-      if (CAN_STROKE) {
-        ctx.strokeRect(x, y, w-x, h-y);
-      }
-      if (CAN_FILL) {
-        ctx.fillRect(x, y, w - x, h - y);
-      }
-    } 
-    else if (pg.__CURRENT_RECTMODE == enums.CENTER) {
-      if (CAN_STROKE) {
-        ctx.strokeRect(x - w / 2, y - h / 2, w , h);
-      }
-      if (CAN_FILL) {
-        ctx.fillRect(x - w / 2, y - h / 2, w , h);
-      }
-    } 
-    else if (pg.__CURRENT_RECTMODE == enums.RADIUS) {
-      if (CAN_STROKE) {
-        ctx.strokeRect(x - w , y - h,w * 2 , h * 2);
-      }
-      if (CAN_FILL) {
-        ctx.fillRect(x - w , y - h,w * 2 , h * 2);
-      }
-    } 
-  };
+    if (CAN_FILL) {
+      ctx.fillRect(x,y,w,h);
+    }
+  }
+  else if (pg.__CURRENT_RECTMODE == enums.CORNERS) {
+    if (CAN_STROKE) {
+      ctx.strokeRect(x, y, w-x, h-y);
+    }
+    if (CAN_FILL) {
+      ctx.fillRect(x, y, w - x, h - y);
+    }
+  } 
+  else if (pg.__CURRENT_RECTMODE == enums.CENTER) {
+    if (CAN_STROKE) {
+      ctx.strokeRect(x - w / 2, y - h / 2, w , h);
+    }
+    if (CAN_FILL) {
+      ctx.fillRect(x - w / 2, y - h / 2, w , h);
+    }
+  } 
+  else if (pg.__CURRENT_RECTMODE == enums.RADIUS) {
+    if (CAN_STROKE) {
+      ctx.strokeRect(x - w , y - h,w * 2 , h * 2);
+    }
+    if (CAN_FILL) {
+      ctx.fillRect(x - w , y - h,w * 2 , h * 2);
+    }
+  } 
+};
 
 pg.__CURRENT_RECTMODE = enums.CORNER;
 
@@ -401,6 +440,20 @@ pg.strokeCap = function(type) {
 pg.strokeWeight = function(w) {
   ctx.lineWidth = w;   
 };
+
+
+
+pg.text = function(text, x, y) {
+  var lines = text.split('\n');
+  for (var i = 0; i < lines.length; ++i) {
+    if (CAN_STROKE) {
+      ctx.strokeText(lines[i],x,y + i * 20);
+    }
+    if (CAN_FILL) {
+      ctx.fillText(lines[i],x,y + i * 20);
+    }
+  }
+}
   pg.translate = function(x, y) {
     ctx.translate(x, y);
   };
@@ -457,8 +510,9 @@ pg.updatePixels = function() {
  * @type {Object}
  */
 var enums = {
-  POINTS          : '1',
-  LINES           : '2',
+  LEFT            : '0',
+  RIGHT           : '2',
+
   TRIANGLES       : '3',
   TRIANGLE_FAN    : '4',
   TRIANGLE_STRIP  : '5',
@@ -471,7 +525,11 @@ var enums = {
   CENTER          : '12',
   CORNER          : '13',
   CORNERS         : '14',
-  RADIUS          : '15'
+  RADIUS          : '15',
+  P2D             : '16',
+  P3D             : '17',
+  POINTS          : '18',
+  LINES           : '19'
 }
 
 
@@ -479,7 +537,7 @@ function PCompiler (src) {
     var TOKENS = [ ',' , ';', ' ', '\t', '+', '!', '(', ')', '#', '\\', '/', '-', '%', '^', '&', '*', '=', '[', ']', '\'', '\"', '{', '}'];
     var source = '';
     var word = '';
-    var TYPES = ['void', 'float', 'int', 'PGraphics', 'boolean'];
+    var TYPES = ['void', 'float', 'int', 'PGraphics', 'boolean', 'String'];
     var TOKENS_SPACE = [ ' ' , '\n', '\r', '\t'];
     var CLASS_TYPES  = [];
 
@@ -787,6 +845,10 @@ function PCompiler (src) {
           word = 'height()';
         }
 
+        if (word === 'mouseButton') {
+          word = 'mouseButton()';
+        }
+
         if (word === 'mouseX') {
           word = 'mouseX()';
         }
@@ -962,21 +1024,60 @@ function CodeArt(canvas) {
     ON_MOUSE_PRESSED.push(fn);
   }
 
+  var ON_MOUSE_RELEASED = [];
+  function ___SetMouseReleased(fn) {
+    ON_MOUSE_RELEASED.push(fn);
+  }
+
+
+  var currenButton = 0;
+
+  canvas.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  });
+
   canvas.addEventListener('mousemove', function(e) {
     MOUSE.x = e.clientX;
     MOUSE.y = e.clientY;
-    console.log(MOUSE.x, MOUSE.y);
+
+    e.preventDefault();
+    e.stopPropagation();
+
   });
 
 
   canvas.addEventListener('mousedown', function(e) {
+    currenButton = e.button;
     for (var i = 0; i < ON_MOUSE_PRESSED.length; ++i) {
       ON_MOUSE_PRESSED[i](e.clientX, e.clientY);
     }
     MOUSE.x = e.clientX;
     MOUSE.y = e.clientY;
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
   });
 
+
+  canvas.addEventListener('mouseup', function(e) {
+    currenButton = e.button;
+    for (var i = 0; i < ON_MOUSE_RELEASED.length; ++i) {
+      ON_MOUSE_RELEASED[i]();
+    }
+
+    MOUSE.x = e.clientX;
+    MOUSE.y = e.clientY;
+
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  });
+
+  function mouseButton() {
+    return currenButton;
+  }
 
   function dist(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
@@ -1038,6 +1139,7 @@ function CodeArt(canvas) {
     'arc',
     'quad',
     'bezier',
+    'text',
 
     'loadPixels',
     'updatePixels',
@@ -1057,9 +1159,12 @@ function CodeArt(canvas) {
     'strokeCap',
 
     'rectMode',
+    'ellipseMode',
 
 
     'rotate',
+
+    'mouseButton',
 
     'map',
     'frameRate',
@@ -1070,6 +1175,7 @@ function CodeArt(canvas) {
 
     '___SetLoop',
     '___SetMousePressed',
+    '___SetMouseReleased',
     'noLoop',
     'loop',
     'redraw',
@@ -1078,7 +1184,7 @@ function CodeArt(canvas) {
     'frameCount',
     
 
-    source += 'var setup; var draw; var mousePressed; if(setup) {setup()} if (mousePressed) {___SetMousePressed(mousePressed)} if (draw) {___SetLoop(draw)}');
+    source += 'var setup; var draw; var mousePressed; if(setup) {setup()} if (mousePressed) {___SetMousePressed(mousePressed)}  if (mouseReleased) {___SetMouseReleased(mouseReleased)} if (draw) {___SetLoop(draw)}');
 
   fn(
     mainPG.width,
@@ -1103,6 +1209,7 @@ function CodeArt(canvas) {
     mainPG.arc,
     mainPG.quad,
     mainPG.bezier,
+    mainPG.text,
 
     mainPG.loadPixels,
     mainPG.updatePixels,
@@ -1122,8 +1229,11 @@ function CodeArt(canvas) {
     mainPG.strokeCap,
 
     mainPG.rectMode,
+    mainPG.ellipseMode,
 
     mainPG.rotate,
+
+    mouseButton,
 
     map,
     frameRate,
@@ -1134,6 +1244,7 @@ function CodeArt(canvas) {
 
     ___SetLoop,
     ___SetMousePressed,
+    ___SetMouseReleased,
     noLoop,
     loop,
     redraw,

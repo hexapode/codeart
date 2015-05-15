@@ -96,21 +96,60 @@ function CodeArt(canvas) {
     ON_MOUSE_PRESSED.push(fn);
   }
 
+  var ON_MOUSE_RELEASED = [];
+  function ___SetMouseReleased(fn) {
+    ON_MOUSE_RELEASED.push(fn);
+  }
+
+
+  var currenButton = 0;
+
+  canvas.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  });
+
   canvas.addEventListener('mousemove', function(e) {
     MOUSE.x = e.clientX;
     MOUSE.y = e.clientY;
-    console.log(MOUSE.x, MOUSE.y);
+
+    e.preventDefault();
+    e.stopPropagation();
+
   });
 
 
   canvas.addEventListener('mousedown', function(e) {
+    currenButton = e.button;
     for (var i = 0; i < ON_MOUSE_PRESSED.length; ++i) {
       ON_MOUSE_PRESSED[i](e.clientX, e.clientY);
     }
     MOUSE.x = e.clientX;
     MOUSE.y = e.clientY;
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
   });
 
+
+  canvas.addEventListener('mouseup', function(e) {
+    currenButton = e.button;
+    for (var i = 0; i < ON_MOUSE_RELEASED.length; ++i) {
+      ON_MOUSE_RELEASED[i]();
+    }
+
+    MOUSE.x = e.clientX;
+    MOUSE.y = e.clientY;
+
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  });
+
+  function mouseButton() {
+    return currenButton;
+  }
 
   function dist(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
@@ -172,6 +211,7 @@ function CodeArt(canvas) {
     'arc',
     'quad',
     'bezier',
+    'text',
 
     'loadPixels',
     'updatePixels',
@@ -191,9 +231,12 @@ function CodeArt(canvas) {
     'strokeCap',
 
     'rectMode',
+    'ellipseMode',
 
 
     'rotate',
+
+    'mouseButton',
 
     'map',
     'frameRate',
@@ -204,6 +247,7 @@ function CodeArt(canvas) {
 
     '___SetLoop',
     '___SetMousePressed',
+    '___SetMouseReleased',
     'noLoop',
     'loop',
     'redraw',
@@ -212,7 +256,7 @@ function CodeArt(canvas) {
     'frameCount',
     
 
-    source += 'var setup; var draw; var mousePressed; if(setup) {setup()} if (mousePressed) {___SetMousePressed(mousePressed)} if (draw) {___SetLoop(draw)}');
+    source += 'var setup; var draw; var mousePressed; if(setup) {setup()} if (mousePressed) {___SetMousePressed(mousePressed)}  if (mouseReleased) {___SetMouseReleased(mouseReleased)} if (draw) {___SetLoop(draw)}');
 
   fn(
     mainPG.width,
@@ -237,6 +281,7 @@ function CodeArt(canvas) {
     mainPG.arc,
     mainPG.quad,
     mainPG.bezier,
+    mainPG.text,
 
     mainPG.loadPixels,
     mainPG.updatePixels,
@@ -256,8 +301,11 @@ function CodeArt(canvas) {
     mainPG.strokeCap,
 
     mainPG.rectMode,
+    mainPG.ellipseMode,
 
     mainPG.rotate,
+
+    mouseButton,
 
     map,
     frameRate,
@@ -268,6 +316,7 @@ function CodeArt(canvas) {
 
     ___SetLoop,
     ___SetMousePressed,
+    ___SetMouseReleased,
     noLoop,
     loop,
     redraw,

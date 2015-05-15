@@ -3,8 +3,9 @@
  * @type {Object}
  */
 var enums = {
-  POINTS          : '1',
-  LINES           : '2',
+  LEFT            : '0',
+  RIGHT           : '2',
+
   TRIANGLES       : '3',
   TRIANGLE_FAN    : '4',
   TRIANGLE_STRIP  : '5',
@@ -17,7 +18,11 @@ var enums = {
   CENTER          : '12',
   CORNER          : '13',
   CORNERS         : '14',
-  RADIUS          : '15'
+  RADIUS          : '15',
+  P2D             : '16',
+  P3D             : '17',
+  POINTS          : '18',
+  LINES           : '19'
 }
 
 
@@ -25,7 +30,7 @@ function PCompiler (src) {
     var TOKENS = [ ',' , ';', ' ', '\t', '+', '!', '(', ')', '#', '\\', '/', '-', '%', '^', '&', '*', '=', '[', ']', '\'', '\"', '{', '}'];
     var source = '';
     var word = '';
-    var TYPES = ['void', 'float', 'int', 'PGraphics', 'boolean'];
+    var TYPES = ['void', 'float', 'int', 'PGraphics', 'boolean', 'String'];
     var TOKENS_SPACE = [ ' ' , '\n', '\r', '\t'];
     var CLASS_TYPES  = [];
 
@@ -331,6 +336,10 @@ function PCompiler (src) {
         }
         if (word === 'height') {
           word = 'height()';
+        }
+
+        if (word === 'mouseButton') {
+          word = 'mouseButton()';
         }
 
         if (word === 'mouseX') {
