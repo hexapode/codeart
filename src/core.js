@@ -256,7 +256,7 @@ function CodeArt(canvas) {
     'frameCount',
     
 
-    source += 'var setup; var draw; var mousePressed; if(setup) {setup()} if (mousePressed) {___SetMousePressed(mousePressed)}  if (mouseReleased) {___SetMouseReleased(mouseReleased)} if (draw) {___SetLoop(draw)}');
+    source += 'var setup; var draw; var mousePressed; var mouseReleased; if(setup) {setup()} if (mousePressed) {___SetMousePressed(mousePressed)}  if (mouseReleased) {___SetMouseReleased(mouseReleased)} if (draw) {___SetLoop(draw)}');
 
   fn(
     mainPG.width,
