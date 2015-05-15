@@ -1649,6 +1649,168 @@ updatePixels();
 
 <div class='clearboth'></div>
     
+<h2>024_pushpopStyle</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    
+size(640, 360);
+background(200);
+
+ellipse(0, 50, 33, 33);  // Left circle
+
+pushStyle();  // Start a new style
+strokeWeight(10);
+fill(204, 153, 0);
+ellipse(50, 50, 33, 33);  // Middle circle
+popStyle();  // Restore original style
+
+ellipse(100, 50, 33, 33);  // Right circle
+
+
+
+ellipse(0, 150, 33, 33);  // Left circle
+
+pushStyle();  // Start a new style
+strokeWeight(10);
+fill(204, 253, 0);
+ellipse(33, 150, 33, 33);  // Left-middle circle
+
+pushStyle();  // Start another new style
+stroke(0, 202, 153);
+ellipse(66, 150, 33, 33);  // Right-middle circle
+popStyle();  // Restore previous style
+
+popStyle();  // Restore original style
+
+ellipse(100, 150, 33, 33);  // Right circle
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+
+size(640, 360);
+background(200);
+
+ellipse(0, 50, 33, 33);  // Left circle
+
+pushStyle();  // Start a new style
+strokeWeight(10);
+fill(204, 153, 0);
+ellipse(50, 50, 33, 33);  // Middle circle
+popStyle();  // Restore original style
+
+ellipse(100, 50, 33, 33);  // Right circle
+
+
+
+ellipse(0, 150, 33, 33);  // Left circle
+
+pushStyle();  // Start a new style
+strokeWeight(10);
+fill(204, 253, 0);
+ellipse(33, 150, 33, 33);  // Left-middle circle
+
+pushStyle();  // Start another new style
+stroke(0, 202, 153);
+ellipse(66, 150, 33, 33);  // Right-middle circle
+popStyle();  // Restore previous style
+
+popStyle();  // Restore original style
+
+ellipse(100, 150, 33, 33);  // Right circle
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+<h2>025_sinandcosin</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    float x1, x2, y1, y2;
+float angle1, angle2;
+float scalar = 70;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  rectMode(CENTER);
+}
+
+void draw() {
+  background(0);
+
+  float ang1 = radians(angle1);
+  float ang2 = radians(angle2);
+
+  x1 = width/2 + (scalar * cos(ang1));
+  x2 = width/2 + (scalar * cos(ang2));
+  
+  y1 = height/2 + (scalar * sin(ang1));
+  y2 = height/2 + (scalar * sin(ang2));
+  
+  fill(255);
+  rect(width*0.5, height*0.5, 140, 140);
+
+  fill(0, 102, 153);
+  ellipse(x1, height*0.5 - 120, scalar, scalar);
+  ellipse(x2, height*0.5 + 120, scalar, scalar);
+  
+  fill(255, 204, 0);
+  ellipse(width*0.5 - 120, y1, scalar, scalar);
+  ellipse(width*0.5 + 120, y2, scalar, scalar);
+
+  angle1 += 2;
+  angle2 += 3;
+  
+}
+
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+float x1, x2, y1, y2;
+float angle1, angle2;
+float scalar = 70;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  rectMode(CENTER);
+}
+
+void draw() {
+  background(0);
+
+  float ang1 = radians(angle1);
+  float ang2 = radians(angle2);
+
+  x1 = width/2 + (scalar * cos(ang1));
+  x2 = width/2 + (scalar * cos(ang2));
+  
+  y1 = height/2 + (scalar * sin(ang1));
+  y2 = height/2 + (scalar * sin(ang2));
+  
+  fill(255);
+  rect(width*0.5, height*0.5, 140, 140);
+
+  fill(0, 102, 153);
+  ellipse(x1, height*0.5 - 120, scalar, scalar);
+  ellipse(x2, height*0.5 + 120, scalar, scalar);
+  
+  fill(255, 204, 0);
+  ellipse(width*0.5 - 120, y1, scalar, scalar);
+  ellipse(width*0.5 + 120, y2, scalar, scalar);
+
+  angle1 += 2;
+  angle2 += 3;
+  
+}
+
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
     <script type="text/javascript">
       startCodeArt();
     </script>

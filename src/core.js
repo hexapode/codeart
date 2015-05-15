@@ -176,6 +176,9 @@ function CodeArt(canvas) {
     'loadPixels',
     'updatePixels',
     'pixels',
+
+    'pushStyle',
+    'popStyle',
     
     'pushMatrix',
     'popMatrix',
@@ -236,6 +239,9 @@ function CodeArt(canvas) {
     mainPG.loadPixels,
     mainPG.updatePixels,
     mainPG.pixels,
+
+    mainPG.pushStyle,
+    mainPG.popStyle,
 
     mainPG._save,
     mainPG._restore,

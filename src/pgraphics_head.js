@@ -4,9 +4,7 @@
 
 function PGraphics(canvas) {
   var ctx = canvas.getContext('2d');
-  // set default colors
-  ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#000';
+
   var CAN_FILL = true;
   var CAN_STROKE = true;
 
@@ -18,3 +16,8 @@ function PGraphics(canvas) {
   var CURRENT_SHAPE = [];
 
   var pg = {};
+
+
+  // set default colors
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#000';

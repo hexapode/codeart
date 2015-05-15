@@ -1,5 +1,4 @@
 pg.updatePixels = function() {
-  debugger;
   if (pg.pixels.length) {
     var pxl = ctx.getImageData(0,0,WIDTH, HEIGHT);
     var pxlData = pxl.data;

@@ -4,9 +4,7 @@
 
 function PGraphics(canvas) {
   var ctx = canvas.getContext('2d');
-  // set default colors
-  ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#000';
+
   var CAN_FILL = true;
   var CAN_STROKE = true;
 
@@ -18,6 +16,11 @@ function PGraphics(canvas) {
   var CURRENT_SHAPE = [];
 
   var pg = {};
+
+
+  // set default colors
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#000';
 
 pg.arc = function(x,y,w,h,start,stop) {
 
@@ -250,6 +253,29 @@ pg.pixels = [];
       ctx.strokeRect(x, y, 1, 1);
     }
   };
+
+pg.___styleStack = [];
+
+pg.pushStyle = function() {
+  pg.___styleStack.push({
+    stroke : ctx.strokeStyle,
+    fill : ctx.fillStyle,
+    lineWidth : ctx.lineWidth,
+    lineCap : ctx.lineCap
+  })
+}
+
+pg.popStyle = function() {
+  if (!pg.___styleStack.length) {
+    return;
+  }
+
+  var style = pg.___styleStack.pop();
+  ctx.strokeStyle = style.stroke;
+  ctx.fillStyle = style.fill;
+  ctx.lineWidth = style.lineWidth;
+  ctx.lineCap = style.lineCap;
+}
 pg.quad = function(x1, y1, x2, y2, x3, y3, x4, y4) {
     ctx.beginPath();
     ctx.moveTo(x1,y1);
@@ -286,6 +312,9 @@ pg.size = function (w, h) {
   canvas.style.height = h + 'px';
   WIDTH = w;
   HEIGHT = h;
+      // set default colors
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#000';
 };
 pg.stroke = function(r) {
   CAN_STROKE = true;
@@ -356,7 +385,6 @@ pg.triangle = function (x1, y1, x2, y2, x3, y3) {
   }
 };
 pg.updatePixels = function() {
-  debugger;
   if (pg.pixels.length) {
     var pxl = ctx.getImageData(0,0,WIDTH, HEIGHT);
     var pxlData = pxl.data;
@@ -382,15 +410,12 @@ pg.updatePixels = function() {
 
   pg._save = function() {
     ctx.save();
-    // set default colors
-  //  ctx.fillStyle = '#fff';
- //   ctx.strokeStyle = '#000';
+
   };
 
   pg._restore = function() {
     ctx.restore();
   };
-
   
   return pg;
 }
@@ -981,6 +1006,9 @@ function CodeArt(canvas) {
     'loadPixels',
     'updatePixels',
     'pixels',
+
+    'pushStyle',
+    'popStyle',
     
     'pushMatrix',
     'popMatrix',
@@ -1041,6 +1069,9 @@ function CodeArt(canvas) {
     mainPG.loadPixels,
     mainPG.updatePixels,
     mainPG.pixels,
+
+    mainPG.pushStyle,
+    mainPG.popStyle,
 
     mainPG._save,
     mainPG._restore,

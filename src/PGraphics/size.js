@@ -7,4 +7,7 @@ pg.size = function (w, h) {
   canvas.style.height = h + 'px';
   WIDTH = w;
   HEIGHT = h;
+      // set default colors
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#000';
 };
