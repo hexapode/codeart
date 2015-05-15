@@ -1,0 +1,88 @@
+<html>
+
+  <head>
+    <script src='../build/codeart.js' type="text/javascript"></script>
+    <title>Code art demo page</title>
+    <style>
+      .code {
+        width : 400px;
+        padding : 10px;
+        float: left;
+      }
+
+      .canvas {
+        width : 640px;
+        float : left;
+        padding : 10px;
+      }
+
+      .clearboth {
+        clear: both;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>CodeArt!</h1><h2>010_DrawContext</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var stamp;
+function setup() {
+  size(640, 360);
+  stamp = createGraphics(400, 200);
+}
+
+function draw() {
+  fill(0, 12);
+  rect(0, 0, width, height);
+  fill(255);
+  noStroke();
+  ellipse(mouseX, mouseY, 60, 60);
+  
+  stamp.beginDraw();
+  stamp.background(51);
+  stamp.noFill();
+  stamp.stroke(255);
+  stamp.ellipse(mouseX-120, mouseY-60, 60, 60);
+  stamp.endDraw();
+  
+  // Draw the offscreen buffer to the screen with image() 
+  image(stamp, 120, 60);
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var stamp;
+function setup() {
+  size(640, 360);
+  stamp = createGraphics(400, 200);
+}
+
+function draw() {
+  fill(0, 12);
+  rect(0, 0, width, height);
+  fill(255);
+  noStroke();
+  ellipse(mouseX, mouseY, 60, 60);
+  
+  stamp.beginDraw();
+  stamp.background(51);
+  stamp.noFill();
+  stamp.stroke(255);
+  stamp.ellipse(mouseX-120, mouseY-60, 60, 60);
+  stamp.endDraw();
+  
+  // Draw the offscreen buffer to the screen with image() 
+  image(stamp, 120, 60);
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+    <script type="text/javascript">
+      startCodeArt();
+    </script>
+  </body>
+</html>

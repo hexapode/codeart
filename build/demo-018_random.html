@@ -1,0 +1,102 @@
+<html>
+
+  <head>
+    <script src='../build/codeart.js' type="text/javascript"></script>
+    <title>Code art demo page</title>
+    <style>
+      .code {
+        width : 400px;
+        padding : 10px;
+        float: left;
+      }
+
+      .canvas {
+        width : 640px;
+        float : left;
+        padding : 10px;
+      }
+
+      .clearboth {
+        clear: both;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>CodeArt!</h1><h2>018_random</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    size(640, 360);
+background(0);
+stroke(153);
+strokeWeight(4);
+strokeCap(SQUARE);
+
+var a = 50;
+var b = 120;
+var c = 180;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+
+a = a + c;
+b = height-b;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+
+a = a + c;
+b = height-b;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+size(640, 360);
+background(0);
+stroke(153);
+strokeWeight(4);
+strokeCap(SQUARE);
+
+var a = 50;
+var b = 120;
+var c = 180;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+
+a = a + c;
+b = height-b;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+
+a = a + c;
+b = height-b;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+    <script type="text/javascript">
+      startCodeArt();
+    </script>
+  </body>
+</html>

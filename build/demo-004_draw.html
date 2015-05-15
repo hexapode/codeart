@@ -1,0 +1,88 @@
+<html>
+
+  <head>
+    <script src='../build/codeart.js' type="text/javascript"></script>
+    <title>Code art demo page</title>
+    <style>
+      .code {
+        width : 400px;
+        padding : 10px;
+        float: left;
+      }
+
+      .canvas {
+        width : 640px;
+        float : left;
+        padding : 10px;
+      }
+
+      .clearboth {
+        clear: both;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>CodeArt!</h1><h2>004_draw</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var y;
+// The statements in the setup() function 
+// execute once when the program begins
+function setup() 
+{
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  
+  y = height * 0.5;
+}
+
+// The statements in draw() are executed until the 
+// program is stopped. Each statement is executed in 
+// sequence and after the last line is read, the first 
+// line is executed again.
+function draw() 
+{ 
+  background(0);   // Set the background to black
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var y;
+// The statements in the setup() function 
+// execute once when the program begins
+function setup() 
+{
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  
+  y = height * 0.5;
+}
+
+// The statements in draw() are executed until the 
+// program is stopped. Each statement is executed in 
+// sequence and after the last line is read, the first 
+// line is executed again.
+function draw() 
+{ 
+  background(0);   // Set the background to black
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+    <script type="text/javascript">
+      startCodeArt();
+    </script>
+  </body>
+</html>

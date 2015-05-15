@@ -1,0 +1,110 @@
+<html>
+
+  <head>
+    <script src='../build/codeart.js' type="text/javascript"></script>
+    <title>Code art demo page</title>
+    <style>
+      .code {
+        width : 400px;
+        padding : 10px;
+        float: left;
+      }
+
+      .canvas {
+        width : 640px;
+        float : left;
+        padding : 10px;
+      }
+
+      .clearboth {
+        clear: both;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>CodeArt!</h1><h2>016_triangleStrips</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    var x;
+var y;
+var outsideRadius = 150;
+var insideRadius = 100;
+
+function setup() {
+  size(640, 360);
+  fill(255);
+  stroke(0);
+  background(204);
+  x = width/2;
+  y = height/2;
+}
+
+function draw() {
+  background(204);
+  
+  var numPoints = int(map(mouseX, 0, width, 6, 60));
+  var angle = 0;
+  var angleStep = 180.0/numPoints;
+    
+  beginShape(TRIANGLE_STRIP);
+  for (var i = 0; i <= numPoints; i++) {
+    var px = x + cos(radians(angle)) * outsideRadius;
+    var py = y + sin(radians(angle)) * outsideRadius;
+    angle += angleStep;
+    vertex(px, py);
+    px = x + cos(radians(angle)) * insideRadius;
+    py = y + sin(radians(angle)) * insideRadius;
+    vertex(px, py);
+    angle += angleStep;
+  }
+  endShape();
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+var x;
+var y;
+var outsideRadius = 150;
+var insideRadius = 100;
+
+function setup() {
+  size(640, 360);
+  fill(255);
+  stroke(0);
+  background(204);
+  x = width/2;
+  y = height/2;
+}
+
+function draw() {
+  background(204);
+  
+  var numPoints = int(map(mouseX, 0, width, 6, 60));
+  var angle = 0;
+  var angleStep = 180.0/numPoints;
+    
+  beginShape(TRIANGLE_STRIP);
+  for (var i = 0; i <= numPoints; i++) {
+    var px = x + cos(radians(angle)) * outsideRadius;
+    var py = y + sin(radians(angle)) * outsideRadius;
+    angle += angleStep;
+    vertex(px, py);
+    px = x + cos(radians(angle)) * insideRadius;
+    py = y + sin(radians(angle)) * insideRadius;
+    vertex(px, py);
+    angle += angleStep;
+  }
+  endShape();
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+    <script type="text/javascript">
+      startCodeArt();
+    </script>
+  </body>
+</html>

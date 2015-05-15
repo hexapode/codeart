@@ -1,0 +1,82 @@
+<html>
+
+  <head>
+    <script src='../build/codeart.js' type="text/javascript"></script>
+    <title>Code art demo page</title>
+    <style>
+      .code {
+        width : 400px;
+        padding : 10px;
+        float: left;
+      }
+
+      .canvas {
+        width : 640px;
+        float : left;
+        padding : 10px;
+      }
+
+      .clearboth {
+        clear: both;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>CodeArt!</h1><h2>009_circleAnimated</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    function setup() {
+  size(640, 360);
+  noStroke();
+  noLoop();
+}
+
+function draw() {
+  drawCircle(width/2, 280, 6);
+}
+
+function drawCircle(x, radius, level) {                    
+  var tt = 126 * level/4.0;
+  fill(tt);
+  ellipse(x, height/2, radius*2, radius*2);      
+  if(level > 1) {
+    level = level - 1;
+    drawCircle(x - radius/2, radius/2, level);
+    drawCircle(x + radius/2, radius/2, level);
+  }
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+function setup() {
+  size(640, 360);
+  noStroke();
+  noLoop();
+}
+
+function draw() {
+  drawCircle(width/2, 280, 6);
+}
+
+function drawCircle(x, radius, level) {                    
+  var tt = 126 * level/4.0;
+  fill(tt);
+  ellipse(x, height/2, radius*2, radius*2);      
+  if(level > 1) {
+    level = level - 1;
+    drawCircle(x - radius/2, radius/2, level);
+    drawCircle(x + radius/2, radius/2, level);
+  }
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+    <script type="text/javascript">
+      startCodeArt();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<html>
+
+  <head>
+    <script src='../build/codeart.js' type="text/javascript"></script>
+    <title>Code art demo page</title>
+    <style>
+      .code {
+        width : 400px;
+        padding : 10px;
+        float: left;
+      }
+
+      .canvas {
+        width : 640px;
+        float : left;
+        padding : 10px;
+      }
+
+      .clearboth {
+        clear: both;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>CodeArt!</h1><h2>007_circles</h2>    
+<div class='canvas'>
+  <canvas codeart='true'>
+    function setup() {
+  size(640, 360);
+  background(51);
+  noStroke();
+  noLoop();
+}
+
+function draw() {
+  drawTarget(width * 0.25, height * 0.4, 200, 4);
+  drawTarget(width * 0.5, height * 0.5, 300, 10);
+  drawTarget(width * 0.75, height * 0.3, 120, 6);
+}
+
+function drawTarget(xloc, yloc, size, num) {
+  grayvalues = 255/num;
+  steps = size/num;
+  for (i = 0; i < num; i++) {
+    fill(i * grayvalues);
+    ellipse(xloc, yloc, size - i * steps, size - i * steps);
+  }
+}
+  </canvas>
+</div>
+<div class='code'>
+  <pre>
+function setup() {
+  size(640, 360);
+  background(51);
+  noStroke();
+  noLoop();
+}
+
+function draw() {
+  drawTarget(width * 0.25, height * 0.4, 200, 4);
+  drawTarget(width * 0.5, height * 0.5, 300, 10);
+  drawTarget(width * 0.75, height * 0.3, 120, 6);
+}
+
+function drawTarget(xloc, yloc, size, num) {
+  grayvalues = 255/num;
+  steps = size/num;
+  for (i = 0; i < num; i++) {
+    fill(i * grayvalues);
+    ellipse(xloc, yloc, size - i * steps, size - i * steps);
+  }
+}
+  </pre>
+</div>
+
+<div class='clearboth'></div>
+    
+    <script type="text/javascript">
+      startCodeArt();
+    </script>
+  </body>
+</html>
