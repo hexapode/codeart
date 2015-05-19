@@ -388,6 +388,9 @@ function PCompiler (src) {
         if (word === 'sqrt') {
           word = 'Math.sqrt';
         }
+        if (word === 'random') {
+          word = 'Math.random';
+        }
 
         if (word === 'println') {
           word = 'console.log';

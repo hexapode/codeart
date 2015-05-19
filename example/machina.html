@@ -1,23 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>code Art Demo</title>
 
 
 </head>
 <body>
   <canvas codeart='true'>
     
+    /**
+    * Some demo code using CodeART
+    */
+    var world = [];
+
+    function initWorld() {
+      
+      // we create 8 vertical *bar*
+      for (var i = 0; 8 >= i; ++i) {
+        var base = (width / 10) * (i + 1);
+ 
+        // of 50 element each
+        for (var j = 0; 50 > j; ++j) {
+          world.push({
+            x : base + (width / 20) * random() - (width / 40),
+            y : random() * height
+          });
+        }
+      }  
+    }
+
     function setup() {
       size(FULL_SCREEN);
-      background(0);
+      background(81);
+      initWorld();
+    }
+
+
+    var PARTICLES = [];
+
+    var loopToNextSlave = 0;
+
+    function spawnASlave() {
+      var slaveSize = 40 + random() * 20 | 0;
+      for (var i = 0; slaveSize > i; ++i) {
+        var p = {
+          d : width * .8,
+          a : ((2 * PI) / slaveSize) * i
+        };
+        PARTICLES.push(p);
+      }
+    }
+
+    function animate() {
+      for (var i = 0; PARTICLES.length > i; ++i) {
+        PARTICLES[i].d -= width / 200;
+        if (0 >= PARTICLES[i].d ) {
+          PARTICLES.splice(i--, 1);
+        }
+      }
+
+      // spawn New particles
+      if (!loopToNextSlave) {
+        loopToNextSlave = 50 + random() * 20 | 0;
+        spawnASlave();
+      }
+      loopToNextSlave--;
+    }
+
+    function linkTenNearest(x, y) {
+      var delta = width * width / 64;
+      for (var i = 0; world.length > i; ++i) {
+        var w = world[i];
+        var d =  (w.x - x) * (w.x - x) + (w.y - y) * (w.y - y);
+        if (delta > d) {
+          stroke(81 + 174 * (1 - d / delta) | 0);
+          line(x,y,w.x, w.y)
+        }
+      }
+    }
+
+    function render() {
+      for (var i = 0; PARTICLES.length > i; ++i) {
+        var p = PARTICLES[i];
+        var x = Math.cos(p.a) * p.d + width / 2;
+        var y = Math.sin(p.a) * p.d + height / 2;
+        // rect(x,y,10,10)
+        linkTenNearest(x,y);
+      }
     }
 
     function draw() {
-      rect(10,10,10,10);
+      animate();
+      background(81);
+      render();
     }
 
   </canvas>
+
   <script type="text/javascript" src='../build/codeart.js'></script>
 </body>
 </html>
