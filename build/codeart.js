@@ -541,6 +541,17 @@ function PCompiler (src) {
     var TOKENS_SPACE = [ ' ' , '\n', '\r', '\t'];
     var CLASS_TYPES  = [];
 
+
+    /*
+      ########  ##     ## ##    ## ########     ######   #######  ########  ######## 
+      ##     ## ##     ## ##   ##  ##          ##    ## ##     ## ##     ## ##       
+      ##     ## ##     ## ##  ##   ##          ##       ##     ## ##     ## ##       
+      ########  ##     ## #####    ######      ##       ##     ## ##     ## ######   
+      ##        ##     ## ##  ##   ##          ##       ##     ## ##     ## ##       
+      ##        ##     ## ##   ##  ##          ##    ## ##     ## ##     ## ##       
+      ##         #######  ##    ## ########     ######   #######  ########  ######## 
+                                    
+    */
     function handleClass() {
 
       while (src.indexOf('class') !== -1) {
@@ -557,19 +568,7 @@ function PCompiler (src) {
         var signature = src.substr(startClass, signatureEnd - startClass);
         var block = src.substr(signatureEnd, blockEnd - signatureEnd);
         var post = src.substr(blockEnd);
-/*
-        console.log('pre');
-        console.log(pre);
-        
-        console.log('signature');
-        console.log(signature);
 
-        console.log('block');
-        console.log(block);
-
-        console.log('post');
-        console.log(post);
-*/
         // find and destroy constructor
 
         var constructorRegExp = new RegExp(className + '[\\s\\r\\t\\n]*\\([^\\)]*\\)[\\s\\r\\t\\n]*\\{' , 'g');
@@ -586,19 +585,6 @@ function PCompiler (src) {
 
         // replaceBlock function by this.functionName = function() {
         // var functionName = this.functionName();
-
-        /*
-########  ##     ## ##    ## ########     ######   #######  ########  ######## 
-##     ## ##     ## ##   ##  ##          ##    ## ##     ## ##     ## ##       
-##     ## ##     ## ##  ##   ##          ##       ##     ## ##     ## ##       
-########  ##     ## #####    ######      ##       ##     ## ##     ## ######   
-##        ##     ## ##  ##   ##          ##       ##     ## ##     ## ##       
-##        ##     ## ##   ##  ##          ##    ## ##     ## ##     ## ##       
-##         #######  ##    ## ########     ######   #######  ########  ######## 
-                                        
-        */
-
-
         console.log(block);
         var blockSource = '';
         var stackDeep = 1;
@@ -662,7 +648,7 @@ function PCompiler (src) {
 
         src = pre + signature + block + post;
         src = src.replace(tabAssignRegexp, '[ ]');
-        
+
         CLASS_TYPES.push(className);
 
 
@@ -833,8 +819,6 @@ function PCompiler (src) {
           + "]"
           + ")");
       }
-   
-
     }
 
     src = src.replace(/&amp;/g, '&');

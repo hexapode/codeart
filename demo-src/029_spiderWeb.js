@@ -1,0 +1,53 @@
+/**
+  FROM http://www.openprocessing.org/sketch/198400 Michael Pinn
+*/
+ArrayList topParticles = new ArrayList();
+ArrayList botParticles = new ArrayList();
+ 
+void setup() {
+  size(640, 640);
+  stroke(255, 125);
+  for (int i = 200; i > -200; i--) {
+    topParticles.add(new Particle(-50, i));
+    botParticles.add(new Particle(50, -i));
+  }
+ 
+  for (int i = 0; i < topParticles.size (); i++) {
+    Particle p = (Particle) topParticles.get(i);
+    Particle p2 = (Particle) botParticles.get(i);
+     
+    p.p2 = (Particle) botParticles.get((int)random(topParticles.size()-1));
+    p2.p2 = (Particle) topParticles.get((int)random(botParticles.size()-1));
+  }
+}
+ 
+void draw() {
+  background(40);
+  translate(width/2, height/2);
+  for (int i = 0; i < topParticles.size (); i++) {
+    Particle p = (Particle) topParticles.get(i);
+    Particle p2 = (Particle) botParticles.get(i);
+    p.draw();
+    p2.draw();
+  }
+}
+ 
+class Particle {
+  Particle p2;
+  PVector loc;
+ 
+  int index, y;
+ 
+  Particle(int y, int index) {
+    loc = new PVector();
+    this.y = y;
+    this.index = index;
+  }
+ 
+  void draw() {
+    loc = new PVector(index, y+sin(radians(-index-sin(radians(index*3))*40+frameCount*3))*25);
+    if(PVector.dist(loc, p2.loc) < 150){
+      line(loc.x, loc.y, p2.loc.x, p2.loc.y);
+    }
+  }
+}
