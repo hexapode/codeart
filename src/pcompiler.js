@@ -22,7 +22,10 @@ var enums = {
   P2D             : '16',
   P3D             : '17',
   POINTS          : '18',
-  LINES           : '19'
+  LINES           : '19',
+
+
+  FULL_SCREEN     : '20'
 }
 
 

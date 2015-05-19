@@ -375,16 +375,31 @@ pg.rectMode = function(mode) {
   pg.rotate = function(angle) {
     ctx.rotate(angle);
   };
+/**
+  Define size of canvas
 
+  size(width, height)
+  size(FULL_SCREEN)
+*/
 
 pg.size = function (w, h) {
+
+  if (arguments.length === 1 && arguments[0] == enums.FULL_SCREEN) {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.style.position = 'absolute';
+    canvas.style.top = 0;
+    canvas.style.left = 0;
+  }
+
   canvas.width = w;
   canvas.height = h;
   canvas.style.width = w + 'px';
   canvas.style.height = h + 'px';
   WIDTH = w;
   HEIGHT = h;
-      // set default colors
+
+  // set default colors
   ctx.fillStyle = '#fff';
   ctx.strokeStyle = '#000';
 };
@@ -529,7 +544,10 @@ var enums = {
   P2D             : '16',
   P3D             : '17',
   POINTS          : '18',
-  LINES           : '19'
+  LINES           : '19',
+
+
+  FULL_SCREEN     : '20'
 }
 
 
@@ -552,6 +570,10 @@ function PCompiler (src) {
       ##         #######  ##    ## ########     ######   #######  ########  ######## 
                                     
     */
+    function handleComments() {
+      
+    }
+
     function handleClass() {
 
       while (src.indexOf('class') !== -1) {
@@ -823,7 +845,7 @@ function PCompiler (src) {
 
     src = src.replace(/&amp;/g, '&');
 
-
+    handleComments();
     handleClass();
     handleArray();
     handleForIn();
@@ -1286,7 +1308,7 @@ function CodeArt(canvas) {
 
 function startCodeArt() {
   var canvasList = document.querySelectorAll('canvas');
-
+  console.log(canvasList);
   
   for (var i = 0; i < canvasList.length; i++) {
     if (canvasList[i].getAttribute("codeart")) {
@@ -1295,3 +1317,4 @@ function startCodeArt() {
   }
 }
 
+window.addEventListener('load', startCodeArt);
