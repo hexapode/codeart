@@ -534,7 +534,7 @@ function ArrayList() {
     if (argments.length === 1) {
       list.push(el);
     }
-    else  (argments.length === 2) {
+    else if (argments.length === 2) {
       var index = argments[0];
       var el = argments[1];
 
@@ -933,8 +933,13 @@ function PCompiler (src) {
       }
     }
 
+    function handleArrayList() {
+      src = src.replace(/ArrayList[\s]*<[\w]*>/g, 'ArrayList');
+    }
+
     src = src.replace(/&amp;/g, '&');
 
+    handleArrayList();
     handleComments();
     handleClass();
     handleArray();
