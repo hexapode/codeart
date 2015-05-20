@@ -36,6 +36,10 @@ function ArrayList() {
     return true;
   };
 
+  this.get = function(index) {
+    return list[index];
+  }
+
   this.indexOf = function(el) {
     return list.indexOf(el);
   };

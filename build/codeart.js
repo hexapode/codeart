@@ -531,12 +531,12 @@ function ArrayList() {
   var list = [];
 
   this.add = function(el) {
-    if (argments.length === 1) {
+    if (arguments.length === 1) {
       list.push(el);
     }
-    else if (argments.length === 2) {
-      var index = argments[0];
-      var el = argments[1];
+    else if (arguments.length === 2) {
+      var index = arguments[0];
+      var el = arguments[1];
 
       list = list.slice(0, index).concat(el, list.slice(index));
     }
@@ -560,6 +560,10 @@ function ArrayList() {
   this.ensureCapacity = function(capacity) {
     return true;
   };
+
+  this.get = function(index) {
+    return list[index];
+  }
 
   this.indexOf = function(el) {
     return list.indexOf(el);
