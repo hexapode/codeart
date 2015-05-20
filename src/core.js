@@ -245,6 +245,8 @@ function CodeArt(canvas) {
     'random',
     'color',
 
+    'ArrayList',
+
     '___SetLoop',
     '___SetMousePressed',
     '___SetMouseReleased',
@@ -314,6 +316,8 @@ function CodeArt(canvas) {
     random,
     color,
 
+    ArrayList,
+    
     ___SetLoop,
     ___SetMousePressed,
     ___SetMouseReleased,

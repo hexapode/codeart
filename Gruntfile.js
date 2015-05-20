@@ -9,11 +9,15 @@ module.exports = function(grunt) {
 
   var FILES = ['./src/pgraphics_head.js'];
   for (var i = 0; i < PG_FILES.length; ++i) {
-    if (PG_FILES[i][0] !== '.') {
-      FILES.push('./src/PGraphics/' + PG_FILES[i])
-    }
+    FILES.push('./src/PGraphics/' + PG_FILES[i])
   }
   FILES.push('./src/pgraphics_footer.js');
+
+  var COMMONS_FILES = fs.readdirSync('./src/commons');
+  for (var i = 0; i < COMMONS_FILES.length; ++i) {
+    FILES.push('./src/commons/' + COMMONS_FILES[i])
+  }
+
   FILES.push('./src/pcompiler.js');
   FILES.push('./src/core.js');
   FILES.push('./src/main.js');
