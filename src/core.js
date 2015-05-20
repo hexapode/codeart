@@ -246,6 +246,7 @@ function CodeArt(canvas) {
     'color',
 
     'ArrayList',
+    'PVector',
 
     '___SetLoop',
     '___SetMousePressed',
@@ -317,6 +318,7 @@ function CodeArt(canvas) {
     color,
 
     ArrayList,
+    PVector,
     
     ___SetLoop,
     ___SetMousePressed,

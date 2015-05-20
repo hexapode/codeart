@@ -326,9 +326,20 @@ function PCompiler (src) {
       CLASS_TYPES.push("ArrayList");
     }
 
+    function handleCommonClass() {
+      CLASS_TYPES.push("PVector");
+    };
+
     function handleClassCast() {
       for (var i = 0; i < CLASS_TYPES.length; ++i) {
         var castRG = new RegExp('\\([\\s]*'+ CLASS_TYPES[i] + '[\\s]*\\)', 'g');
+        src = src.replace(castRG, ' ');
+      }
+      var castRG = new RegExp('\\([\\s]*int[\\s]*\\)', 'g');
+      src = src.replace(castRG, ' 0 | ');
+
+      for (var i = 0; i < TYPES.length; ++i) {
+        var castRG = new RegExp('\\([\\s]*'+ TYPES[i] + '[\\s]*\\)', 'g');
         src = src.replace(castRG, ' ');
       }
     }
@@ -336,6 +347,7 @@ function PCompiler (src) {
     src = src.replace(/&amp;/g, '&');
 
     handleArrayList();
+    handleCommonClass();
     handleComments();
     handleClass();
     handleArray();
