@@ -938,7 +938,7 @@ function PCompiler (src) {
       CLASS_TYPES.push("ArrayList");
     }
 
-    function handeClassCast() {
+    function handleClassCast() {
       for (var i = 0; i < CLASS_TYPES.length; ++i) {
         var castRG = new RegExp('\\([\\s]*'+ CLASS_TYPES[i] + '[\\s]*\\)', 'g');
         src = src.replace(castRG, ' ');
