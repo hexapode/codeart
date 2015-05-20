@@ -935,6 +935,14 @@ function PCompiler (src) {
 
     function handleArrayList() {
       src = src.replace(/ArrayList[\s]*<[\w]*>/g, 'ArrayList');
+      CLASS_TYPES.push("ArrayList");
+    }
+
+    function handeClassCast() {
+      for (var i = 0; i < CLASS_TYPES.length; ++i) {
+        var castRG = new RegExp('\\([\\s]*'+ CLASS_TYPES[i] + '[\\s]*\\)', 'g');
+        src = src.replace(castRG, ' ');
+      }
     }
 
     src = src.replace(/&amp;/g, '&');
@@ -944,6 +952,8 @@ function PCompiler (src) {
     handleClass();
     handleArray();
     handleForIn();
+
+    handleClassCast();
 
 
 
