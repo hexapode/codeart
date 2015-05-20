@@ -321,8 +321,13 @@ function PCompiler (src) {
       }
     }
 
+    function handleArrayList() {
+      src = src.replace(/ArrayList[\s]*<[\w]*>/g, 'ArrayList');
+    }
+
     src = src.replace(/&amp;/g, '&');
 
+    handleArrayList();
     handleComments();
     handleClass();
     handleArray();
